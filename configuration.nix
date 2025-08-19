@@ -7,39 +7,40 @@
     ./modules/lsp.nix
     ./modules/graphics/amd.nix
   ];
-
-  graphics.amd.enable = true;
-
+  
+  # Enable AMD graphics
+  #graphics.amd.enable = enableAMD;
+  
   nixpkgs.config.allowUnfree = true;
-
+  
   # Boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  
   # Networking
   networking.hostName = "evnix";
   networking.networkmanager.enable = true;
-
+  
   # Time zone
   time.timeZone = "America/New_York";
-
+  
   # User account
   users.users.evanh = {
     shell = pkgs.fish;
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
   };
-
+  
   # Display manager
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
   };
   services.xserver.enable = true;
-
+  
   # Enable development environment
   development.php-laravel.enable = true;
-
+  
   # Hyprland setup
   programs.hyprland.enable = true;
   
@@ -48,7 +49,7 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
-
+  
   # Audio
   security.rtkit.enable = true;
   services.pipewire = {
@@ -57,7 +58,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
+  
   # Steam config
   programs.steam = {
     enable = true;
@@ -65,10 +66,10 @@
     dedicatedServer.openFirewall = true;
   };
   programs.gamemode.enable = true;
-
-  # Graphics and display
-  hardware.graphics.enable = true;
-
+  
+  # REMOVE this line - the AMD module handles graphics now
+  # hardware.graphics.enable = true;
+  
   # System packages - Hyprland essentials + development tools
   environment.systemPackages = with pkgs; [
     # Basic system tools
@@ -106,11 +107,10 @@
     
     # Development extras
     postman
-
     # Games
     lutris
   ];
-
+  
   # Enable services
   services.openssh.enable = true;
   
@@ -125,8 +125,7 @@
     nerd-fonts.iosevka
     dosis
   ];
-
+  
   programs.fish.enable = true;
-
   system.stateVersion = "25.05";
 }
