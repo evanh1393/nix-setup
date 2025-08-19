@@ -4,6 +4,7 @@
 {
   environment.systemPackages = with pkgs; [
     # Language Servers
+    vue-language-server
     lua-language-server
     nil                                    # Nix
     nodePackages.typescript-language-server # JS/TS
