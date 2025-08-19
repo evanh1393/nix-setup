@@ -86,7 +86,7 @@
     waybar          # Alternative bar
     rofi-wayland    # App launcher
     dunst           # Notifications
-    swww            # Wallpaper
+    hyprpaper       # Wallpaper
     grim            # Screenshots
     slurp           # Screen area selection
     wl-clipboard    # Clipboard
