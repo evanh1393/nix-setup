@@ -107,8 +107,12 @@
     
     # Development extras
     postman
+    
     # Games
     lutris
+
+    imagemagick # Thumbnail creation
+
   ];
   
   # Enable services
