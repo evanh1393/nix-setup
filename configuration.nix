@@ -84,15 +84,14 @@
     ghostty         # Terminal
     fish            # Shell (since you're using fish)
     fastfetch 
-
-    # File manager
-    # thunar
     
     # Common utilities
     htop
     neofetch
     tree
     unzip
+    btop
+    pkgs.lazygit
     
     # Development extras
     postman
