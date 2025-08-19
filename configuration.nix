@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/development.nix
+    ./modules/lsp.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -21,6 +22,7 @@
 
   # User account
   users.users.evanh = {
+    shell = pkgs.fish;
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
   };
@@ -93,7 +95,6 @@
     unzip
     
     # Development extras
-    # vscode
     postman
   ];
 
@@ -108,7 +109,11 @@
     font-awesome
     nerd-fonts.fira-code
     nerd-fonts.droid-sans-mono
+    nerd-fonts.iosevka
+    dosis
   ];
+
+  programs.fish.enable = true;
 
   system.stateVersion = "25.05";
 }
