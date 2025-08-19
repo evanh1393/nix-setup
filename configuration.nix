@@ -5,7 +5,10 @@
     ./hardware-configuration.nix
     ./modules/development.nix
     ./modules/lsp.nix
+    ./modules/graphics/amd.nix
   ];
+
+  graphics.amd.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -55,6 +58,14 @@
     pulse.enable = true;
   };
 
+  # Steam config
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
+  programs.gamemode.enable = true;
+
   # Graphics and display
   hardware.graphics.enable = true;
 
@@ -95,6 +106,9 @@
     
     # Development extras
     postman
+
+    # Games
+    lutris
   ];
 
   # Enable services
