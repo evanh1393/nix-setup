@@ -7,7 +7,7 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
-  
+
   # Boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -70,17 +70,19 @@
     hyprland
     eww
     waybar          # Alternative bar
-    wofi    	    # App launcher
+    rofi-wayland    # App launcher
     dunst           # Notifications
     swww            # Wallpaper
     grim            # Screenshots
     slurp           # Screen area selection
     wl-clipboard    # Clipboard
+    swaynotificationcenter
     
     # Terminal and shell
     ghostty         # Terminal
     fish            # Shell (since you're using fish)
-    
+    fastfetch 
+
     # File manager
     # thunar
     
