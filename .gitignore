@@ -1,0 +1,17 @@
+# Hardware-specific files (don't sync these across machines)
+hardware-configuration.nix
+
+# Build artifacts
+result
+result-*
+
+# Temporary files
+.#*
+*~
+*.swp
+*.swo
+
+# Secrets (if you add any later)
+secrets/
+*.key
+*.pem
