@@ -26,5 +26,10 @@
     gcc
     gnumake
     tree-sitter                            # Treesitter CLI
+
+    # Bash
+    bash-language-server
+    shfmt
+    shellcheck
   ];
 }
