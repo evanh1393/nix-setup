@@ -6,6 +6,7 @@
     ./modules/development.nix
     ./modules/lsp.nix
     ./modules/graphics/amd.nix
+    ./dotfiles.nix
   ];
   
   # Enable AMD graphics
