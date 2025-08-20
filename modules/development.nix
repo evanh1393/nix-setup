@@ -2,23 +2,21 @@
 
 {
   options.development.php-laravel.enable = lib.mkEnableOption "PHP Laravel development environment";
-
+  
   config = lib.mkIf config.development.php-laravel.enable {
-    environment.systemPackages = with pkgs; [
-      (php84.buildEnv {
-        extensions = ({ enabled, all }: enabled ++ (with all; [
-          redis pdo_mysql pdo_pgsql imagick gd mbstring
-          curl openssl zip tokenizer fileinfo
-          dom session ctype iconv simplexml xmlreader xmlwriter
-        ]));
-        extraConfig = ''
-          memory_limit = 256M
-          upload_max_filesize = 64M
-          post_max_size = 64M
-          max_execution_time = 300
-        '';
-      })
-      phpPackages.composer
+    environment.systemPackages = 
+    let
+      myPhp = pkgs.php84.withExtensions ({ all, enabled }: enabled ++ (with all; [
+        imagick redis pdo_mysql pdo_pgsql gd mbstring curl openssl zip 
+        tokenizer fileinfo dom session ctype iconv simplexml xmlreader xmlwriter
+      ]));
+      
+      myComposer = pkgs.phpPackages.composer.override { php = myPhp; };
+    in
+    with pkgs; [
+      imagemagick
+      myPhp
+      myComposer
       mariadb_114
       postgresql_16
       redis
@@ -31,11 +29,9 @@
     services.mysql = {
       enable = true;
       package = pkgs.mariadb_114;
-      settings = {
-        mysqld = {
-          bind-address = "127.0.0.1";
-          port = 3306;
-        };
+      settings.mysqld = {
+        bind-address = "127.0.0.1";
+        port = 3306;
       };
       initialDatabases = [{ name = "laravel_dev"; }];
       initialScript = pkgs.writeText "mysql-init.sql" ''
@@ -48,9 +44,7 @@
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
-      settings = {
-        port = 5432;
-      };
+      settings.port = 5432;
       initialScript = pkgs.writeText "postgresql-init.sql" ''
         CREATE USER laravel WITH PASSWORD 'password' CREATEDB;
         CREATE DATABASE laravel_dev OWNER laravel;
@@ -80,3 +74,4 @@
     };
   };
 }
+

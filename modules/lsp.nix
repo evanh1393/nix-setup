@@ -18,7 +18,7 @@
     stylua
     nixpkgs-fmt
     nodePackages.prettier
-    php84Packages.composer                 # PHP 8.4
+    #php84Packages.composer                 # PHP 8.4
     python311Packages.black                # Python formatter
     python311Packages.isort                # Python import sorter
     
