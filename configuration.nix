@@ -86,11 +86,12 @@ in
     discord
     fd
     fzf
-
+    vlc
+    protonup-qt
     # Hyprland ecosystem
     hyprland
     eww
-    waybar
+    waybar 
     rofi-wayland
     dunst
     hyprpaper
@@ -125,6 +126,8 @@ in
     github-copilot-cli
     grimblast
     libnotify          # notify-send popups
+    nwg-dock-hyprland
+    nwg-drawer
 
     lf
     jetbrains.datagrip
