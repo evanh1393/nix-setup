@@ -1,15 +1,24 @@
 { config, pkgs, ... }:
 
+let
+  # Import NUR (Nix User Repository)
+  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+    inherit pkgs;
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
     ./modules/development.nix
     ./modules/lsp.nix
     ./modules/graphics/amd.nix
-    ./modules/themes/nordzy.nix   # ✅ new Nordzy module
+    ./modules/themes/nordzy.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
+
+  # Pass NUR into all modules
+  _module.args.nur = nur;
 
   # Boot loader
   boot.loader.systemd-boot.enable = true;
@@ -29,13 +38,6 @@
     extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
   };
 
-  # Display manager
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
-  services.xserver.enable = true;
-
   # Enable development environment
   development.php-laravel.enable = true;
 
@@ -47,6 +49,14 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
+
+  # DISPLAY
+  services.displayManager.sddm.enable=true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.defaultSession = "hyprland";
+
+  hardware.graphics.enable = true;
+
 
   # Audio
   security.rtkit.enable = true;
@@ -91,8 +101,8 @@
     # Terminal and shell
     ghostty
     fish
-    fastfetch 
-    neofetch 
+    fastfetch
+    neofetch
 
     # Common utilities
     htop
@@ -110,14 +120,14 @@
     # Misc
     imagemagick
     github-copilot-cli
-    grimblast   
+    grimblast
     libnotify          # notify-send popups
   ];
 
   # Enable services
   services.openssh.enable = true;
 
-  # Fonts (important for Hyprland)
+  # Fonts (important for Hyprland + SDDM theme)
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
@@ -127,6 +137,7 @@
     nerd-fonts.droid-sans-mono
     nerd-fonts.iosevka
     dosis
+    inter
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
