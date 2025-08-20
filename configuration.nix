@@ -113,7 +113,7 @@
     lutris
 
     imagemagick # Thumbnail creation
-
+    github-copilot-cli
   ];
   
   # Enable services
