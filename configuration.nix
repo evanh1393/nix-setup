@@ -12,7 +12,6 @@ in
     ./modules/development.nix
     ./modules/lsp.nix
     ./modules/graphics/amd.nix
-    ./modules/themes/nordzy.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -85,6 +84,8 @@ in
     wget
     firefox
     discord
+    fd
+    fzf
 
     # Hyprland ecosystem
     hyprland
@@ -103,6 +104,8 @@ in
     fish
     fastfetch
     neofetch
+    nordzy-cursor-theme
+    nordzy-icon-theme
 
     # Common utilities
     htop
@@ -122,6 +125,9 @@ in
     github-copilot-cli
     grimblast
     libnotify          # notify-send popups
+
+    lf
+    jetbrains.datagrip
   ];
 
   # Enable services
@@ -141,6 +147,32 @@ in
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+
+  # Hyprland/Wayland will read these so the cursor shows up immediately
+  environment.sessionVariables = {
+    XCURSOR_THEME = "Nordzy-cursors";
+    XCURSOR_SIZE  = "24";
+
+    # Make Qt apps follow GTK so they use the same icons
+    QT_QPA_PLATFORMTHEME = "gtk3";
+  };
+
+  # Set system defaults for GTK3/GTK4 (affects all users unless they override)
+  environment.etc = {
+    "xdg/gtk-3.0/settings.ini".text = ''
+      [Settings]
+      gtk-icon-theme-name=Nordzy-dark
+      gtk-cursor-theme-name=Nordzy-cursors
+      gtk-cursor-theme-size=24
+    '';
+    "xdg/gtk-4.0/settings.ini".text = ''
+      [Settings]
+      gtk-icon-theme-name=Nordzy-dark
+      gtk-cursor-theme-name=Nordzy-cursors
+      gtk-cursor-theme-size=24
+    '';
+  };
 
   programs.fish.enable = true;
   system.stateVersion = "25.05";
