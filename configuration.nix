@@ -110,6 +110,8 @@
     # Misc
     imagemagick
     github-copilot-cli
+    grimblast   
+    libnotify          # notify-send popups
   ];
 
   # Enable services
