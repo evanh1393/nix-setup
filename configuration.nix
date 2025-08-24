@@ -1,3 +1,4 @@
+
 { config, pkgs, ... }:
 
 let
@@ -56,7 +57,6 @@ in
 
   hardware.graphics.enable = true;
 
-
   # Audio
   security.rtkit.enable = true;
   services.pipewire = {
@@ -99,6 +99,8 @@ in
     slurp
     wl-clipboard
     swaynotificationcenter
+    pavucontrol
+    _1password-gui
 
     # Terminal and shell
     ghostty
@@ -107,7 +109,7 @@ in
     neofetch
     nordzy-cursor-theme
     nordzy-icon-theme
-
+    
     # Common utilities
     htop
     tree
@@ -130,7 +132,7 @@ in
     nwg-drawer
 
     lf
-    jetbrains.datagrip
+    jetbrains-toolbox
   ];
 
   # Enable services
@@ -150,7 +152,6 @@ in
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 
   # Hyprland/Wayland will read these so the cursor shows up immediately
   environment.sessionVariables = {
@@ -180,4 +181,5 @@ in
   programs.fish.enable = true;
   system.stateVersion = "25.05";
 }
+
 
