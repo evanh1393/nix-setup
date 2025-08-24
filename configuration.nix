@@ -133,6 +133,7 @@ in
 
     lf
     jetbrains-toolbox
+    dnsutils
   ];
 
   # Enable services
