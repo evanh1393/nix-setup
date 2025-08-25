@@ -23,7 +23,7 @@
       meilisearch
       nodejs_latest
       bun
-      git
+      go
     ];
 
     services.mysql = {

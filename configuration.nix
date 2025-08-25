@@ -1,6 +1,4 @@
-
 { config, pkgs, ... }:
-
 let
   # Import NUR (Nix User Repository)
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
@@ -14,49 +12,37 @@ in
     ./modules/lsp.nix
     ./modules/graphics/amd.nix
   ];
-
   nixpkgs.config.allowUnfree = true;
-
   # Pass NUR into all modules
   _module.args.nur = nur;
-
   # Boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   # Networking
   networking.hostName = "evnix";
   networking.networkmanager.enable = true;
-
   # Time zone
   time.timeZone = "America/New_York";
-
   # User account
   users.users.evanh = {
     shell = pkgs.fish;
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
   };
-
   # Enable development environment
   development.php-laravel.enable = true;
-
   # Hyprland setup
   programs.hyprland.enable = true;
-
   # XDG portal for Hyprland
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
-
   # DISPLAY
   services.displayManager.sddm.enable=true;
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.defaultSession = "hyprland";
-
   hardware.graphics.enable = true;
-
   # Audio
   security.rtkit.enable = true;
   services.pipewire = {
@@ -65,7 +51,6 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
   # Steam config
   programs.steam = {
     enable = true;
@@ -73,13 +58,11 @@ in
     dedicatedServer.openFirewall = true;
   };
   programs.gamemode.enable = true;
-
   # System packages - Hyprland essentials + development tools
   environment.systemPackages = with pkgs; [
     # Basic system tools
     vim
     neovim
-    git
     curl
     wget
     firefox
@@ -101,7 +84,6 @@ in
     swaynotificationcenter
     pavucontrol
     _1password-gui
-
     # Terminal and shell
     ghostty
     fish
@@ -115,30 +97,29 @@ in
     tree
     unzip
     btop
+    git
     lazygit
-
     # Development extras
     postman
-
     # Games
     lutris
-
     # Misc
     imagemagick
     github-copilot-cli
     grimblast
     libnotify          # notify-send popups
-    nwg-dock-hyprland
-    nwg-drawer
-
     lf
     jetbrains-toolbox
     dnsutils
+    stow
+    starship
+    obsidian
+    chromium
+    whois
   ];
 
   # Enable services
   services.openssh.enable = true;
-
   # Fonts (important for Hyprland + SDDM theme)
   fonts.packages = with pkgs; [
     noto-fonts
@@ -151,18 +132,14 @@ in
     dosis
     inter
   ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # Hyprland/Wayland will read these so the cursor shows up immediately
   environment.sessionVariables = {
     XCURSOR_THEME = "Nordzy-cursors";
     XCURSOR_SIZE  = "24";
-
     # Make Qt apps follow GTK so they use the same icons
     QT_QPA_PLATFORMTHEME = "gtk3";
   };
-
   # Set system defaults for GTK3/GTK4 (affects all users unless they override)
   environment.etc = {
     "xdg/gtk-3.0/settings.ini".text = ''
@@ -178,9 +155,7 @@ in
       gtk-cursor-theme-size=24
     '';
   };
-
+  # Fish shell
   programs.fish.enable = true;
   system.stateVersion = "25.05";
 }
-
-

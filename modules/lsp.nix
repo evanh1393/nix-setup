@@ -2,34 +2,44 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; [
     # Language Servers
     vue-language-server
     lua-language-server
-    nil                                    # Nix
-    nodePackages.typescript-language-server # JS/TS
-    nodePackages.intelephense              # PHP
-    python311Packages.python-lsp-server    # Python LSP
-    
+    nil
+    nodePackages.typescript-language-server
+    nodePackages.intelephense
+    python311Packages.python-lsp-server
+    gopls
+
     # Language Runtimes
-    python311                              # Python runtime
-    
-    # Formatters for the LSPs
+    python311
+
+    # Formatters
     stylua
     nixpkgs-fmt
     nodePackages.prettier
-    #php84Packages.composer                 # PHP 8.4
-    python311Packages.black                # Python formatter
-    python311Packages.isort                # Python import sorter
-    
+    python311Packages.black
+    python311Packages.isort
+    gofumpt
+    go-tools             # provides goimports
+
+    # Linters
+    golangci-lint
+
     # Build tools for Treesitter compilation
     gcc
     gnumake
-    tree-sitter                            # Treesitter CLI
+    tree-sitter
 
     # Bash
     bash-language-server
     shfmt
     shellcheck
+
+    # Optional Go tools
+    delve
+    gotests
   ];
+
 }
