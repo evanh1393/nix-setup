@@ -25,6 +25,7 @@
       docker-compose
       oxker
       lazydocker
+      typescript
     ];
 
     # Enable Docker service
