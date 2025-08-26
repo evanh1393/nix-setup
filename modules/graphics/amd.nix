@@ -21,4 +21,15 @@
   
   # Performance optimizations
   boot.kernelParams = [ "amdgpu.dc=1" ];
+
+  # Exclude problematic DZN driver, keep only AMD drivers
+  environment.sessionVariables = {
+    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json:/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
+  };
+  
+  # Ensure Vulkan tools are available
+  environment.systemPackages = with pkgs; [
+    vulkan-tools
+    vulkan-validation-layers
+  ];
 }

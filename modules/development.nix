@@ -1,16 +1,13 @@
 { config, pkgs, lib, ... }:
-
 {
   options.development.php-laravel.enable = lib.mkEnableOption "PHP Laravel development environment";
-  
   config = lib.mkIf config.development.php-laravel.enable {
-    environment.systemPackages = 
+    environment.systemPackages =
     let
       myPhp = pkgs.php84.withExtensions ({ all, enabled }: enabled ++ (with all; [
-        imagick redis pdo_mysql pdo_pgsql gd mbstring curl openssl zip 
+        imagick redis pdo_mysql pdo_pgsql gd mbstring curl openssl zip
         tokenizer fileinfo dom session ctype iconv simplexml xmlreader xmlwriter
       ]));
-      
       myComposer = pkgs.phpPackages.composer.override { php = myPhp; };
     in
     with pkgs; [
@@ -24,7 +21,15 @@
       nodejs_latest
       bun
       go
+      docker
+      docker-compose
     ];
+
+    # Enable Docker service
+    virtualisation.docker = {
+      enable = true;
+      enableOnBoot = true;
+    };
 
     services.mysql = {
       enable = true;
@@ -40,7 +45,6 @@
         FLUSH PRIVILEGES;
       '';
     };
-
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
@@ -55,7 +59,6 @@
         host all all ::1/128 trust
       '';
     };
-
     services.redis = {
       servers."" = {
         enable = true;
@@ -63,7 +66,6 @@
         port = 6379;
       };
     };
-
     environment.etc."scripts/start-meilisearch.sh" = {
       text = ''
         #!/bin/sh
@@ -74,4 +76,3 @@
     };
   };
 }
-

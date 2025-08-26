@@ -1,6 +1,4 @@
-# /etc/nixos/modules/language-servers.nix
 { config, pkgs, ... }:
-
 {
     environment.systemPackages = with pkgs; [
     # Language Servers
@@ -11,10 +9,11 @@
     nodePackages.intelephense
     python311Packages.python-lsp-server
     gopls
-
+    dockerfile-language-server-nodejs 
+    
     # Language Runtimes
     python311
-
+    
     # Formatters
     stylua
     nixpkgs-fmt
@@ -22,24 +21,24 @@
     python311Packages.black
     python311Packages.isort
     gofumpt
-    go-tools             # provides goimports
-
+    go-tools
+    
     # Linters
     golangci-lint
-
+    hadolint                          
+    
     # Build tools for Treesitter compilation
     gcc
     gnumake
     tree-sitter
-
+    
     # Bash
     bash-language-server
     shfmt
     shellcheck
-
+    
     # Optional Go tools
     delve
     gotests
   ];
-
 }
