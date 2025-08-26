@@ -11,6 +11,7 @@ in
     ./modules/development.nix
     ./modules/lsp.nix
     ./modules/graphics/amd.nix
+    ./modules/kubernetes.nix
   ];
   nixpkgs.config.allowUnfree = true;
   # Pass NUR into all modules
@@ -27,7 +28,7 @@ in
   users.users.evanh = {
     shell = pkgs.fish;
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "docker" ];
   };
   # Enable development environment
   development.php-laravel.enable = true;

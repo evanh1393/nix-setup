@@ -10,6 +10,8 @@
     python311Packages.python-lsp-server
     gopls
     dockerfile-language-server-nodejs 
+    yaml-language-server
+    yamllint
     
     # Language Runtimes
     python311

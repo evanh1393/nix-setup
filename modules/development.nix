@@ -23,6 +23,8 @@
       go
       docker
       docker-compose
+      oxker
+      lazydocker
     ];
 
     # Enable Docker service
