@@ -16,33 +16,11 @@ in
   nixpkgs.config.allowUnfree = true;
   # Pass NUR into all modules
   _module.args.nur = nur;
-  
-  # Nix settings for build optimization
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    # Reduce build parallelism to prevent memory exhaustion
-    cores = 2;
-    max-jobs = 2;
-    # Increase build memory limits
-    sandbox = true;
-    # Use binary cache aggressively to avoid building Electron
-    substituters = [
-      "https://cache.nixos.org/"
-      "https://nix-community.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
-
   # Boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
-  # Try a more stable kernel version
-  boot.kernelPackages = pkgs.linuxPackages_6_12;  # Changed from 6.16
-  
+  boot.kernelPackages = pkgs.linuxPackages_6_16;
   # Networking
   networking.hostName = "evnix";
   networking.networkmanager.enable = true;
@@ -83,14 +61,6 @@ in
     dedicatedServer.openFirewall = true;
   };
   programs.gamemode.enable = true;
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      vesktop = prev.vesktop.override { electron = prev.electron_35-bin; };
-      obsidian = prev.obsidian.override { electron = prev.electron_35-bin; };
-    }
-  )];
-  
   # System packages - Hyprland essentials + development tools
   environment.systemPackages = with pkgs; [
     # Basic system tools
@@ -99,7 +69,7 @@ in
     curl
     wget
     firefox
-    vesktop          
+    vesktop          # Replaced discord with vesktop
     fd
     fzf
     vlc
@@ -146,16 +116,10 @@ in
     dnsutils
     stow
     starship
-    obsidian          
+    obsidian
     chromium
     whois
   ];
-  
-  # Build environment variables to help with Node.js memory
-  environment.variables = {
-    NODE_OPTIONS = "--max-old-space-size=8192";
-  };
-  
   # Enable services
   services.openssh.enable = true;
   # Fonts (important for Hyprland + SDDM theme)
@@ -170,7 +134,7 @@ in
     dosis
     inter
   ];
-  
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Hyprland/Wayland will read these so the cursor shows up immediately
   environment.sessionVariables = {
     XCURSOR_THEME = "Nordzy-cursors";
