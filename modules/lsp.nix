@@ -12,6 +12,7 @@
     dockerfile-language-server-nodejs 
     yaml-language-server
     yamllint
+    fish-lsp
     
     # Language Runtimes
     python311
