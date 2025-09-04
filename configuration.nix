@@ -41,7 +41,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   
   # Try a more stable kernel version
-  boot.kernelPackages = pkgs.linuxPackages_6_12;  # Changed from 6.16
+  boot.kernelPackages = pkgs.linuxPackages_latest; 
   
   # Networking
   networking.hostName = "evnix";
@@ -124,7 +124,8 @@ in
     neofetch
     nordzy-cursor-theme
     nordzy-icon-theme
-    
+    claude-code  
+    ripgrep
     # Common utilities
     htop
     tree
