@@ -117,6 +117,7 @@ in
     swaynotificationcenter
     pavucontrol
     _1password-gui
+
     # Terminal and shell
     ghostty
     fish
@@ -126,6 +127,7 @@ in
     nordzy-icon-theme
     claude-code  
     ripgrep
+
     # Common utilities
     htop
     tree
@@ -133,10 +135,13 @@ in
     btop
     git
     lazygit
+    
     # Development extras
     postman
+
     # Games
     lutris
+
     # Misc
     imagemagick
     github-copilot-cli
