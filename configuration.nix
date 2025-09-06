@@ -104,6 +104,8 @@ in
     fzf
     vlc
     protonup-qt
+    bat
+    
     # Hyprland ecosystem
     hyprland
     eww
