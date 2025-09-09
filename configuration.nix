@@ -12,8 +12,11 @@ in
     ./modules/lsp.nix
     ./modules/graphics/amd.nix
     ./modules/kubernetes.nix
+    ./machine-local.nix
   ];
+
   nixpkgs.config.allowUnfree = true;
+
   # Pass NUR into all modules
   _module.args.nur = nur;
   
