@@ -44,8 +44,8 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest; 
   
   # Networking
-  networking.hostName = "evnix";
   networking.networkmanager.enable = true;
+
   # Time zone
   time.timeZone = "America/New_York";
   # User account

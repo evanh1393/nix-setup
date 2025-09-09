@@ -15,3 +15,5 @@ result-*
 secrets/
 *.key
 *.pem
+
+machine-local.nix
