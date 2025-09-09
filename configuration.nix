@@ -108,6 +108,7 @@ in
     vlc
     protonup-qt
     bat
+    networkmanagerapplet
     
     # Hyprland ecosystem
     hyprland
