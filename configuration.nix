@@ -87,6 +87,9 @@ in
   };
   programs.gamemode.enable = true;
 
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+
   nixpkgs.overlays = [
     (final: prev: {
       vesktop = prev.vesktop.override { electron = prev.electron_35-bin; };
@@ -109,7 +112,12 @@ in
     protonup-qt
     bat
     networkmanagerapplet
-    
+    figlet
+    brave
+    yazi
+    zoxide
+    lm_sensors
+
     # Hyprland ecosystem
     hyprland
     eww
